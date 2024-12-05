@@ -1,0 +1,74 @@
+{
+    "family": "spring-boot-readonly-root",
+    "cpu": "256",
+    "memory": "512",
+    "containerDefinitions": [
+        {
+            "name": "spring-boot-container",
+            "image": "pasiorovuo/spring-boot-readonly-root:latest",
+            "essential": true,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/spring-boot-readonly-root",
+                    "awslogs-region": "eu-west-1",
+                    "awslogs-stream-prefix": "spring-boot-container"
+                }
+            },
+            "mountPoints": [
+                {
+                    "containerPath": "/app/tmp",
+                    "readOnly": false,
+                    "sourceVolume": "app-tmp"
+                },
+                {
+                    "containerPath": "/app/logs",
+                    "readOnly": false,
+                    "sourceVolume": "app-logs"
+                },
+                {
+                    "containerPath": "/var/lib/amazon",
+                    "readOnly": false,
+                    "sourceVolume": "var-lib-amazon"
+                },
+                {
+                    "containerPath": "/var/log/amazon",
+                    "readOnly": false,
+                    "sourceVolume": "var-log-amazon"
+                }
+            ],
+            "portMappings": [
+                {
+                    "hostPort": 8000,
+                    "containerPort": 8000,
+                    "protocol": "tcp"
+                }
+            ],
+            "readonlyRootFilesystem": true
+        }
+    ],
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "runtimePlatform": {
+        "cpuArchitecture": "ARM64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "taskRoleArn": "arn:aws:iam::371908811028:role/por-test-ecs-role",
+    "executionRoleArn": "arn:aws:iam::371908811028:role/por-test-ecs-role",
+    "volumes": [
+        {
+            "name": "app-tmp"
+        },
+        {
+            "name": "app-logs"
+        },
+        {
+            "name": "var-lib-amazon"
+        },
+        {
+            "name": "var-log-amazon"
+        }
+    ]
+}
