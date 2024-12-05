@@ -55,8 +55,8 @@
         "cpuArchitecture": "ARM64",
         "operatingSystemFamily": "LINUX"
     },
-    "taskRoleArn": "arn:aws:iam::371908811028:role/por-test-ecs-role",
-    "executionRoleArn": "arn:aws:iam::371908811028:role/por-test-ecs-role",
+    "taskRoleArn": "...",
+    "executionRoleArn": "...",
     "volumes": [
         {
             "name": "app-tmp"
